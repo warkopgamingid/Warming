@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Warming POS · Connect</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f4f5f7;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 36px 32px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 40px -12px rgba(0,0,0,0.18);
+  }
+  .brand { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px; }
+  .brand-mark {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: linear-gradient(135deg, #1a6fd4, #0e50a0);
+    color: #fff; font-weight: 700; font-size: 18px;
+    display: grid; place-items: center;
+  }
+  .brand-name { font-size: 16px; font-weight: 700; color: #0a0c10; text-align:left; }
+  .brand-sub  { font-size: 11px; color: #95a0b1; margin-top: 1px; text-align:left; }
+  h1 { font-size: 20px; font-weight: 600; color: #0a0c10; margin-bottom: 6px; }
+  p  { font-size: 13px; color: #51586a; margin-bottom: 22px; line-height: 1.5; }
+  .qr { display: inline-block; padding: 14px; border-radius: 14px; border: 1.5px solid #ececf0; margin-bottom: 22px; }
+  .qr img { display: block; width: 200px; height: 200px; }
+  .url { font-family: ui-monospace, monospace; font-size: 11px; color: #51586a; background: #f4f5f7; border-radius: 8px; padding: 8px 12px; word-break: break-all; margin-bottom: 22px; border: 1px solid #ececf0; }
+  .steps { text-align: left; }
+  .step { display: flex; gap: 12px; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid #f0f1f3; font-size: 13px; color: #0a0c10; }
+  .step:last-child { border-bottom: none; }
+  .step-n { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #1a6fd4, #0e50a0); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; }
+  .step-text { line-height: 1.5; padding-top: 2px; }
+  .note { margin-top: 18px; font-size: 11px; color: #95a0b1; padding: 10px; background: #f8f9fb; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">
+    <div class="brand-mark">W</div>
+    <div>
+      <div class="brand-name">Warming POS</div>
+      <div class="brand-sub">Rental PlayStation + F&amp;B</div>
+    </div>
+  </div>
+  <h1>Open on Android</h1>
+  <p>Scan with your Android phone. Both devices must be on the same WiFi.</p>
+  <div class="qr"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYYAAAGGCAIAAADw4rGyAAAH+0lEQVR4nO3csW4jNxhGUTvYTkiR93/IFIHqSZlUgw24zH+pOaeXLY+0Fyy+5fd1XV8ADb9NvwGAf0gSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBIZIEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBIZIEhEgSECJJQIgkASGSBIT82PejX7//8fVZ3n/9OfI0Vn5v09Oehn8LP88pCQiRJCBEkoAQSQJCJAkIkSQgRJKAEEkCQiQJeMZ6+8QN7r6V7f3fu/J771974uJ86j2vmPp795l6kk5JQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQIklAyNh6u7miXrFv67zvaawsv6f+3vvXTr3nfV4H/ltY4ZQEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSERNfbn2ffXvnzbsie+sn3r933nvk3pyQgRJKAEEkCQiQJCJEkIESSgBBJAkIkCQiRJCDEevt/MrXP3ndz84p9+2xO55QEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSERNfbbjL+Vc9q6sbolXus7zVv5t7n/bBbvZ2SgBBJAkIkCQiRJCBEkoAQSQJCJAkIkSQgRJKAkLH19tNuUN63sfban39WTU/7t3DPKQkIkSQgRJKAEEkCQiQJCJEkIESSgBBJAkIkCXjGevvEHe0+zVufm59Rc8288qyaz7nJKQkIkSQgRJKAEEkCQiQJCJEkIESSgBBJAkIkCQj5vq7rUXvlFVMb3KmnsfL3Nm8E36f5rk7clDslASGSBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBIT9O3LPu2/6u2PcXnfg07jXXzCd+nz+PUxIQIklAiCQBIZIEhEgSECJJQIgkASGSBIRIEvCM9faK5sZ66qbq5munFucnfuumfvJr23dj31/klASESBIQIklAiCQBIZIEhEgSECJJQIgkASGSBDxjvX3incFTC+x992fve21zcd5cM6+89p1cuu/jlASESBIQIklAiCQBIZIEhEgSECJJQIgkASGSBIRE795u7qRX7Fv3Tv3efe95ap+9z4mf/hSnJCBEkoAQSQJCJAkIkSQgRJKAEEkCQiQJCJEk4Bnr7X33Ok8tg1dM3frc3HavvKt9r51y4nvexykJCJEkIESSgBBJAkIkCQiRJCBEkoAQSQJCJAl4xnp76mbfz9tJN534nj/vG3tvakO/wikJCJEkIESSgBBJAkIkCQiRJCBEkoAQSQJCJAl4xnq7aep27akt7NQe/fN83o3v7+Qn6JQEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSEfF/XNfKLm7cCn7h2nbrXeWrNvO+b09xYP+3fglMSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQMrbePnHteuJueN9Ouvkk9zlx233ilt0pCQiRJCBEkoAQSQJCJAkIkSQgRJKAEEkCQiQJCPmx70fvW+g27xvet7J92rZ7ahd+b+o535u6p3wfpyQgRJKAEEkCQiQJCJEkIESSgBBJAkIkCQiRJOAZ6+2p9ee9qRuF7zXvsW4uofdp3kX9HvqMpjglASGSBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBId/XdX31TN0Z3NzCNlfFn3eb+MpPPnEl/0rezO2UBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBIZIEPOPu7akltOX3//OsVta9zU35vRPf84m3ejslASGSBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBz7h7e+UW5H2vfdq6t3m/8ufdNv153/b30PfZKQkIkSQgRJKAEEkCQiQJCJEkIESSgBBJAkIkCXjG3dv7TC1lV97VPlMr231PcuUTnFqrT33rTvwfBfeckoAQSQJCJAkIkSQgRJKAEEkCQiQJCJEkIESSgJAj19v3Vva7J65sm6vxqU+heY/1vanF+Wvo237PKQkIkSQgRJKAEEkCQiQJCJEkIESSgBBJAkIkCXjGenvfTcZ89u3aK6a+Oft+7+vA/42wwikJCJEkIESSgBBJAkIkCQiRJCBEkoAQSQJCJAl4xnp76ibjfe7XrlN3UU/dzXzi59u8Xbu5on4NvWenJCBEkoAQSQJCJAkIkSQgRJKAEEkCQiQJCJEk4Bnr7XsnLlb3vfbe1C58avndvJl7akP/NE5JQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQIklAyNh6u7mE3mdlgb3vzu99u/B9O+nm39u8ify97e/dxykJCJEkIESSgBBJAkIkCQiRJCBEkoAQSQJCJAkIia63P8/UqnifqXusp5y4Gn8v7P6nOCUBIZIEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEh1tsJKxvcKVML7BOX3/ea2+4pTklAiCQBIZIEhEgSECJJQIgkASGSBIRIEhAiSUBIdL3d3JVO3c38tM3x1JPc9ymc+DSmOCUBIZIEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEh39d1bfrR7kj+VVY2uCvr3n3LYGvm05/zPk5JQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQIknAM9bbAP+VUxIQIklAiCQBIZIEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBIZIEhEgSECJJQIgkASGSBIRIEhAiSUCIJAEhkgSESBIQIklAiCQBIZIEhEgS8NXxN15l1PnsL8k+AAAAAElFTkSuQmCC" alt="QR"/></div>
+  <div class="url">http://192.168.1.84:3101/POS%20PlayStation%20Rental.html</div>
+  <div class="steps">
+    <div class="step"><div class="step-n">1</div><div class="step-text">Open <strong>Warming POS.app</strong> on your Mac</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-text">Connect Android to the <strong>same WiFi</strong></div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-text">Scan the QR with your camera</div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-text">In Chrome: tap <strong>⋮ → Add to Home screen</strong></div></div>
+  </div>
+  <div class="note">Login: <strong>Admin / 1234</strong></div>
+</div>
+</body>
+</html>

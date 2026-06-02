@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Warming POS launcher — starts Python server + opens in Chrome app mode
+
+APP_DIR="$(cd "$(dirname "$0")/../../.." && pwd)"
+PORT=3101
+URL="http://localhost:${PORT}/POS%20PlayStation%20Rental.html"
+
+# Kill any stale server on this port
+lsof -ti tcp:${PORT} | xargs kill -9 2>/dev/null
+
+# Start HTTP server in background, serving the project directory
+python3 -m http.server ${PORT} --directory "$APP_DIR" --bind 0.0.0.0 &>/dev/null &
+SERVER_PID=$!
+
+# Give it a moment to start
+sleep 0.6
+
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+if [ -f "$CHROME" ]; then
+  # Open in Chrome app mode (no browser UI — feels like a native app)
+  "$CHROME" \
+    --app="$URL" \
+    --window-size=1280,800 \
+    --no-first-run \
+    --no-default-browser-check \
+    --disable-extensions \
+    2>/dev/null
+else
+  # Fallback: Safari
+  open -a Safari "$URL"
+fi
+
+# Clean up server when the window is closed
+kill $SERVER_PID 2>/dev/null
