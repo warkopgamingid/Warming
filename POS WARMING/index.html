@@ -278,7 +278,7 @@ body[data-theme="dark"] .page-sub {
 .card-pad-lg { padding: 24px; }
 
 /* ============= KPI cards ============= */
-.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 22px; }
 @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
 .kpi {
   background: var(--surface);
@@ -2822,8 +2822,9 @@ function addProduct(product) {
   notifyProd();
   const db = _sb();
   if (db) {
-    const { img: _img, ...safeProduct } = product;
-    db.from("products").upsert([safeProduct], { onConflict: "id" }).then(({error}) => { if(error) console.warn("[sync] addProduct:", error); });
+    // Use _prodRow to only send columns that exist in Supabase (id, name, price, cost, cat, stock)
+    db.from("products").upsert([_prodRow(product)], { onConflict: "id" })
+      .then(({error}) => { if(error) console.error("[sync] addProduct failed:", error.message); });
   }
 }
 function deleteProduct(productId) {
@@ -5527,6 +5528,7 @@ function ReportScreen() {
 function PendapatanTab() {
   const now = new Date();
   const localTxns = window.useTransactions ? window.useTransactions() : [];
+  const allExpenses = window.useExpenses ? window.useExpenses() : [];
   const [txns, setTxns] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [loadError, setLoadError] = React.useState("");
@@ -5590,6 +5592,17 @@ function PendapatanTab() {
   const totalFnb  = periodTxns.reduce((a,t)=>a+(t.fnb||0),0);
   const totalRevenue = totalSewa + totalFnb;
   const targetPct = target > 0 ? Math.min(100, Math.round((totalRevenue / target) * 100)) : 0;
+
+  // Expenses for this period (from useExpenses — synced to Supabase)
+  const totalExpenses = React.useMemo(() => {
+    return allExpenses.filter(e => {
+      if (!e.tanggal) return false;
+      const d = new Date(e.tanggal);
+      return d.getMonth() === periodMonth && d.getFullYear() === periodYear;
+    }).reduce((s, e) => s + (Number(e.jumlah) || 0), 0);
+  }, [allExpenses, periodMonth, periodYear]);
+
+  const pendapatanBersih = totalRevenue - totalExpenses;
 
   // Monthly chart data (12 months of chartYear, from real txns)
   const [chartYear, setChartYear] = React.useState(periodYear);
@@ -5657,21 +5670,11 @@ function PendapatanTab() {
         </div>
       )}
 
-      <div className="kpi-grid">
+      <div className="kpi-grid" style={{gridTemplateColumns:"repeat(3,1fr)"}}>
         <div className="kpi">
           <div className="kpi-label">Total Pendapatan / Bulan</div>
           <div className="kpi-value tnum">{RP(totalRevenue)}</div>
           <div className="kpi-delta" style={{color:"var(--fg-3)"}}>{periodTxns.length} transaksi</div>
-        </div>
-        <div className="kpi">
-          <div className="kpi-label">Rental</div>
-          <div className="kpi-value tnum">{RP(totalSewa)}</div>
-          <div className="kpi-delta">{totalRevenue>0 ? Math.round(totalSewa/totalRevenue*100) : 0}% dari total</div>
-        </div>
-        <div className="kpi">
-          <div className="kpi-label">Makanan &amp; Minuman</div>
-          <div className="kpi-value tnum">{RP(totalFnb)}</div>
-          <div className="kpi-delta">{totalRevenue>0 ? Math.round(totalFnb/totalRevenue*100) : 0}% dari total</div>
         </div>
         <div className="kpi" style={{position:"relative"}}>
           <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
@@ -5697,6 +5700,17 @@ function PendapatanTab() {
               <button className="btn" onClick={()=>setShowTarget(true)} style={{height:24, padding:"0 10px", fontSize:11, marginTop:6}}>+ Set Target</button>
             </>
           )}
+        </div>
+
+        {/* Pendapatan Bersih = Total Revenue − Total Expenses */}
+        <div className="kpi">
+          <div className="kpi-label">Pendapatan Bersih</div>
+          <div className="kpi-value tnum" style={{color: pendapatanBersih >= 0 ? "var(--ok)" : "var(--danger)"}}>
+            {RP(pendapatanBersih)}
+          </div>
+          <div className="kpi-delta" style={{color:"var(--fg-3)"}}>
+            Pendapatan − Pengeluaran
+          </div>
         </div>
       </div>
 
