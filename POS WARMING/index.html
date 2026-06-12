@@ -2638,7 +2638,7 @@ async function initInventoryFromSupabase() {
     // Supabase wins for stock/price/name; keep local img, psType, promo
     const merged = localProds.map(p => {
       const sb = sbProdMap[p.id];
-      return sb ? { ...p, ...sb, img: p.img || "", psType: p.psType||sb.psType||null, promo: p.promo||sb.promo||null } : p;
+      return sb ? { ...p, ...sb, img: p.img || "", cat: sb.cat || p.cat || "", psType: p.psType||sb.psType||null, promo: p.promo||sb.promo||null } : p;
     });
     const localProdIds = new Set(localProds.map(p => p.id));
     for (const sb of prods) { if (!localProdIds.has(sb.id)) merged.push(sb); }
@@ -2701,7 +2701,7 @@ function setupInventoryRealtime() {
         const sbMap = Object.fromEntries(data.map(p => [p.id, p]));
         const merged = localProds.map(p => {
           const sb = sbMap[p.id];
-          return sb ? { ...p, ...sb, img: p.img || sb.img || "" } : p;
+          return sb ? { ...p, ...sb, img: p.img || sb.img || "", cat: sb.cat || p.cat || "" } : p;
         });
         const localIds = new Set(localProds.map(p => p.id));
         for (const sb of data) { if (!localIds.has(sb.id)) merged.push(sb); }
